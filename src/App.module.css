@@ -1,0 +1,10 @@
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}

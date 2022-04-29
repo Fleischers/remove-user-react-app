@@ -1,7 +1,7 @@
 .wrapper {
   padding: 20px;
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   border-radius: 10px;
   border: 1px solid #ccc;
@@ -10,4 +10,55 @@
 
 .userData {
   flex-direction: column;
+}
+
+.checkBox {
+  margin-right: 10px;
+
+}
+
+.name {
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 16pt;
+}
+
+.email {
+  color: #666;
+}
+
+.userDetails {
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  align-items: center;
+}
+
+.gender {
+
+  text-transform: capitalize;
+
+}
+
+.status {
+  height: 40px;
+  min-width: 80px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.activeStatus {
+  composes: status;
+  background-color: rgb(186, 240, 186);
+}
+
+.inactiveStatus {
+  composes: status;
+  background-color: #eee;
 }
