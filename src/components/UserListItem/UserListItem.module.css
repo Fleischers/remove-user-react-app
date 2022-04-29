@@ -1,0 +1,13 @@
+.wrapper {
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.userData {
+  flex-direction: column;
+}
