@@ -1,6 +1,9 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import UserListItem from "../UserListItem";
 import s from "./UserList.module.css";
-import { useEffect, useState } from "react";
+import { getUsersAsync, selectUsers } from "../../redux/UserList/userSlice";
 
 const userLists = [
   {
@@ -146,17 +149,17 @@ const userLists = [
 ];
 
 export default function UserList() {
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
+  const dispatch = useDispatch();
+  const users = useSelector(selectUsers);
+  
+  console.log(users);
 
   useEffect(() => {
-    setUsers(async () => { 
-      return await getUsers(); 
-    });
-  }, []);
+    dispatch(getUsersAsync());
+  }, [dispatch]);
 
-  async function getUsers() {
-    return await fetch('https://gorest.co.in/public/v2/users');
-  }
+
 
   return (
     <ul className={s.userList}>
