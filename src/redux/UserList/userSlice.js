@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getUsers } from "../../services/userAPI";
+import { getUsers } from "services/userAPI";
 
 const initialState = {
   status: "idle",
@@ -52,7 +52,7 @@ const userListSlice = createSlice({
     [getUsersAsync.fulfilled]: (state, action) => {
       const { payload } = action;
       const userItemsSelected = payload.reduce(
-        (acc, curr) => ({...acc, [curr.id]: false}),
+        (acc, curr) => ({ ...acc, [curr.id]: false }),
         {}
       );
       console.log(userItemsSelected);

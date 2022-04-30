@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import UserListItem from "../UserListItem";
+import UserListItem from "components/UserListItem";
 import s from "./UserList.module.css";
 import {
   getUsersAsync,
   selectUsers,
   selectStatus,
-} from "../../redux/UserList/userSlice";
+} from "redux/UserList/userSlice";
 
 export default function UserList() {
   const dispatch = useDispatch();
@@ -19,7 +19,11 @@ export default function UserList() {
   }, [dispatch]);
 
   if (status === "pending") {
-    return <div size="lg" content="Large">Loading...</div>;
+    return (
+      <div size="lg" content="Large">
+        Loading...
+      </div>
+    );
   }
 
   if (status === "fulfilled") {
@@ -31,7 +35,9 @@ export default function UserList() {
           </li>
         ))}
       </ul>
-    ) : (<p>No users left</p>);
+    ) : (
+      <p>No users left</p>
+    );
   }
 
   if (status === "rejected") {
