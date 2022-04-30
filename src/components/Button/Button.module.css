@@ -5,15 +5,16 @@
   border: none;
   padding: 10px;
   color: #eee;
-  transition: background-color 250ms linear, box-shadow 250ms linear, color 250ms linear;
+  transition: background-color 250ms linear, box-shadow 250ms linear,
+    color 250ms linear;
   border-radius: 5px;
   font-size: 12pt;
-
 }
 
-.actionButton:hover, .actionButton:focus  {
+.actionButton:hover,
+.actionButton:focus {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-  color: #fff
+  color: #fff;
 }
 
 .selectButton {
@@ -21,10 +22,11 @@
   background-color: rgb(30, 146, 136);
 }
 
-.selectButton:hover, .selectButton:focus  {
+.selectButton:hover,
+.selectButton:focus {
   background-color: rgb(48, 191, 179);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-  color: #fff
+  color: #fff;
 }
 
 .selectButton:active {
@@ -36,11 +38,16 @@
   background-color: rgb(158, 32, 32);
 }
 
-.deleteButton:hover, .deleteButton:focus  {
+.deleteButton:hover,
+.deleteButton:focus {
   background-color: rgb(190, 28, 28);
-  color: #fff
+  color: #fff;
 }
-
+.deleteButton:disabled {
+  cursor: auto;
+  pointer-events: none;
+  background-color: rgb(156, 96, 96);
+}
 .deleteButton:active {
   background-color: red;
 }

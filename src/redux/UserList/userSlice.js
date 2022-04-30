@@ -76,7 +76,7 @@ export const selectUsers = (state) => state.userItem.userList;
 
 export const selectStatus = (state) => state.userItem.status;
 
-export const selectremovalIds = (state) => state.userItem.removalIds;
+export const selectremovalIds = (state) => state.userItem.selectedIds;
 
 // export const selectUserIds = (state) => state.userItem.userItemsSelected;
 

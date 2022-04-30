@@ -1,8 +1,20 @@
 import s from "./Button.module.css";
 
-export default function Button({style, type, title, onClick}) {
-
+export default function Button({
+  className,
+  type,
+  title,
+  onClick,
+  disabled = false,
+}) {
   return (
-    <button className={s[style]} type={type} onClick={onClick}>{title}</button>
+    <button
+      className={s[className]}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {title}
+    </button>
   );
 }

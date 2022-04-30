@@ -36,7 +36,9 @@ export default function UserListItem({ user }) {
         className={s.checkBox}
       />
       <div className={s.userData}>
-        <p className={s.name}>{name}</p>
+        <label htmlFor={id} className={s.name}>
+          {name}
+        </label>
         <p className={s.email}>{email}</p>
       </div>
       <div className={s.userDetails}>
