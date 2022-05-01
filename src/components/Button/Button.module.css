@@ -32,6 +32,11 @@
 .selectButton:active {
   background-color: rgb(39, 243, 226);
 }
+.selectButton:disabled {
+  cursor: auto;
+  pointer-events: none;
+  background-color: rgb(120, 184, 178);
+}
 
 .deleteButton {
   composes: actionButton;

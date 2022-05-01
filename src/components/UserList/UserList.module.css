@@ -1,5 +1,7 @@
-
 .userItem:not(:last-child) {
   margin-bottom: 20px;
 }
 
+.notification {
+  text-align: center;
+}

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import UserListItem from "components/UserListItem";
 import s from "./UserList.module.css";
 import {
@@ -8,6 +7,7 @@ import {
   selectUsers,
   selectStatus,
 } from "redux/UserList/userSlice";
+import Loader from "components/Loader/Loader";
 
 export default function UserList() {
   const dispatch = useDispatch();
@@ -19,11 +19,7 @@ export default function UserList() {
   }, [dispatch]);
 
   if (status === "pending") {
-    return (
-      <div size="lg" content="Large">
-        Loading...
-      </div>
-    );
+    return <Loader />;
   }
 
   if (status === "fulfilled") {
@@ -36,13 +32,13 @@ export default function UserList() {
         ))}
       </ul>
     ) : (
-      <p>No users left</p>
+      <h2 className={s.notification}>No users left</h2>
     );
   }
 
   if (status === "rejected") {
-    return <h3>There is a server error</h3>;
+    return <h3 className={s.notification}>There is a server error</h3>;
   }
 
-  return <h3>Initializing...</h3>;
+  return <h3 className={s.notification}>Initializing...</h3>;
 }

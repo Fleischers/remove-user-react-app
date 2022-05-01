@@ -1,13 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectremovalIds } from "redux/UserList/userSlice";
+import { selectUsers } from "redux/UserList/userSlice";
 import s from "./App.module.css";
-import UserList from "./components/UserList";
-import Button from "./components/Button";
-import { deleteUsers, selectAllUsers } from "./redux/UserList/userSlice";
+import Container from "components/Container";
+import UserList from "components/UserList";
+import Button from "components/Button";
+import {
+  deleteUsers,
+  selectAllUsers,
+  getIsSelectedAll,
+} from "./redux/UserList/userSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const selectedIds = useSelector(selectremovalIds);
+  const users = useSelector(selectUsers);
+  const isSelectedAll = useSelector(getIsSelectedAll);
 
   function deleteClickHandler() {
     dispatch(deleteUsers());
@@ -17,25 +23,30 @@ function App() {
     dispatch(selectAllUsers());
   }
 
+  function isDisabled() {
+    return users.every((user) => user.selected === false);
+  }
+
   return (
-    <div className={s.container}>
+    <Container>
       <div className={s.navigation}>
         <Button
-          className="selectButton"
+          btnClass="selectButton"
           type="button"
-          title="Select All"
+          title={isSelectedAll ? "Unselect All" : "Select All"}
           onClick={selectAllClickHandler}
+          disabled={users.length === 0}
         />
         <Button
-          className="deleteButton"
+          btnClass="deleteButton"
           type="button"
           title="Delete"
           onClick={deleteClickHandler}
-          disabled={!selectedIds.length}
+          disabled={isDisabled()}
         />
       </div>
       <UserList />
-    </div>
+    </Container>
   );
 }
 

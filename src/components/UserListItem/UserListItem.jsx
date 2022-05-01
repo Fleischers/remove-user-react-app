@@ -1,29 +1,15 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import s from "./UserListItem.module.css";
-import {
-  addToSelected,
-  removeFromSelected,
-  selectUserIds,
-} from "redux/UserList/userSlice";
+import { toggleSelected } from "redux/UserList/userSlice";
+import PropTypes from "prop-types";
 
 export default function UserListItem({ user }) {
-  const { id, name, email, gender, status } = user;
-
-  const [selected, setSelected] = useState(false);
-  // const checked = useSelector((state) => {
-  //   return state.userItem.userItemsSelected[id]
-  // });
+  const { id, name, email, gender, status, selected } = user;
 
   const dispatch = useDispatch();
 
-  function toggle(e) {
-    setSelected((isSelected) => !isSelected);
-    if (e.target.checked) {
-      dispatch(addToSelected(id));
-    } else {
-      dispatch(removeFromSelected(id));
-    }
+  function toggle() {
+    dispatch(toggleSelected(id));
   }
 
   return (
@@ -50,3 +36,14 @@ export default function UserListItem({ user }) {
     </div>
   );
 }
+
+UserListItem.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    selected: PropTypes.bool.isRequired,
+  }),
+};
