@@ -4,8 +4,7 @@ import { getUsers } from "services/userAPI";
 const initialState = {
   status: "idle",
   userList: [],
-  selectedIds: [],
-  userItemsSelected: {},
+  isSelectedAll: false,
 };
 
 export const getUsersAsync = createAsyncThunk(
@@ -13,7 +12,7 @@ export const getUsersAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const response = await getUsers();
-      return response;
+      return response.map((user) => ({ ...user, selected: false }));
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -24,24 +23,25 @@ const userListSlice = createSlice({
   name: "userSlice",
   initialState,
   reducers: {
-    addToSelected: (state, action) => {
-      state.selectedIds = [...state.selectedIds, action.payload];
-    },
-    removeFromSelected: (state, action) => {
-      state.selectedIds = state.selectedIds.filter((id) => {
-        return id !== action.payload;
-      });
-    },
     selectAllUsers: (state) => {
-      state.selectedIds = state.userList.map((user) => user.id);
+      state.isSelectedAll = !state.isSelectedAll;
+      state.userList = state.userList.map((user) => ({
+        ...user,
+        selected: state.isSelectedAll,
+      }));
+    },
+    toggleSelected: (state, { payload }) => {
+      state.userList = state.userList.map((user) =>
+        user.id === payload ? { ...user, selected: !user.selected } : user
+      );
     },
     deleteUsers: (state) => {
       state.userList = state.userList.filter(
-        ({ id }) => !state.selectedIds.includes(id)
+        ({ selected }) => selected === false
       );
-      state.selectedIds = [];
     },
   },
+
   extraReducers: {
     [getUsersAsync.pending]: (state) => {
       return {
@@ -51,16 +51,10 @@ const userListSlice = createSlice({
     },
     [getUsersAsync.fulfilled]: (state, action) => {
       const { payload } = action;
-      const userItemsSelected = payload.reduce(
-        (acc, curr) => ({ ...acc, [curr.id]: false }),
-        {}
-      );
-      console.log(userItemsSelected);
       return {
         ...state,
         status: "fulfilled",
         userList: payload,
-        userItemsSelected,
       };
     },
     [getUsersAsync.rejected]: (state) => {
@@ -74,17 +68,11 @@ const userListSlice = createSlice({
 
 export const selectUsers = (state) => state.userItem.userList;
 
+export const getIsSelectedAll = (state) => state.userItem.isSelectedAll;
+
 export const selectStatus = (state) => state.userItem.status;
-
-export const selectremovalIds = (state) => state.userItem.selectedIds;
-
-// export const selectUserIds = (state) => state.userItem.userItemsSelected;
 
 export default userListSlice.reducer;
 
-export const {
-  addToSelected,
-  removeFromSelected,
-  selectAllUsers,
-  deleteUsers,
-} = userListSlice.actions;
+export const { selectAllUsers, deleteUsers, toggleSelected } =
+  userListSlice.actions;
