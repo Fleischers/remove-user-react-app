@@ -39,6 +39,7 @@ const userListSlice = createSlice({
       state.userList = state.userList.filter(
         ({ selected }) => selected === false
       );
+      state.isSelectedAll = false;
     },
   },
 
